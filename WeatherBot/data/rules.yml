@@ -1,0 +1,68 @@
+# Contains the set of rules (intent-action assignment) for dialog management and its policies.
+# Multiple-intent multiple-action rules are included, for more info. 
+# see: https://rasa.com/blog/how-to-handle-multiple-intents-per-input-using-rasa-nlu-tensorflow-pipeline/
+
+version: "3.1"
+
+rules:
+  - rule: fallback
+    steps:
+      - intent: nlu_fallback
+      - action: utter_default
+  - rule: how_to_get_started
+    steps:
+      - intent: how_to_get_started
+      - action: utter_greet
+      - action: utter_iamabot
+  - rule: greet
+    steps:
+      - intent: greet
+      - action: utter_greet
+  - rule: thankyou
+    steps:
+      - intent: thankyou
+      - action: utter_youarewelcome
+  - rule: goodbye
+    steps:
+      - intent: goodbye
+      - action: utter_goodbye
+  - rule: temperature
+    steps:
+      - intent: temperature
+      - action: action_get_temperature
+  - rule: description
+    steps:
+      - intent: description
+      - action: action_get_description
+  - rule: precipitation
+    steps:
+      - intent: precipitation
+      - action: action_get_precipitation
+  - rule: humidity
+    steps:
+      - intent: humidity
+      - action: action_get_humidity
+  - rule: wind
+    steps:
+      - intent: wind
+      - action: action_get_wind
+  - rule: forecast
+    steps:
+      - intent: forecast
+      - action: action_get_forecast
+
+# Multiple-intent multiple-action rule
+  - rule: greet+forecast
+    steps:
+      - intent: greet+forecast
+      - action: utter_greet
+      - action: action_get_forecast
+      
+# Multiple-intent multiple-action rule
+  - rule: temperature+humidity+wind+precipitation
+    steps:
+      - intent: temperature+humidity+wind+precipitation
+      - action: action_get_temperature
+      - action: action_get_humidity
+      - action: action_get_wind
+      - action: action_get_precipitation

@@ -1,0 +1,163 @@
+# Stories that represent possible and real user requests. 
+# Are part of the training data for the policies (dialog management)
+
+version: "3.1"
+
+stories:
+#1
+- story: User Story No. 1                     # name of the story - just for debugging
+  steps:
+  - intent: greet                             # user message with no entities
+  - action: utter_greet
+  - intent: temperature                       # user message with entities
+    entities:
+    - location: "Amsterdam"
+  - action: action_get_temperature            # action that the bot should execute
+  - intent: temperature
+    entities:
+    - location: "Dubai"
+  - action: action_get_temperature  
+  - intent: description                       # user message with entities
+    entities:
+    - location: "Santiago"
+  - action: action_get_description            # action that the bot should execute
+  - intent: thankyou
+  - action: utter_youarewelcome
+  - intent: goodbye
+  - action: utter_goodbye
+#2
+- story: User Story No. 2                     # name of the story - just for debugging
+  steps:
+  - intent: precipitation                     # user message with entities
+    entities:
+    - location: "New York"
+  - action: action_get_precipitation          # action that the bot should execute
+  - intent: humidity                          # user message with entities
+    entities:
+    - location: "Dubai"
+  - action: action_get_humidity               # action that the bot should execute
+  - intent: wind                              # user message with entities
+    entities:
+    - location: "Barcelona"
+  - action: action_get_wind                   # action that the bot should execute
+  - intent: forecast                          # user message with entities
+    entities:
+    - location: "New York"
+  - action: action_get_forecast               # action that the bot should execute
+#3
+- story: User Story No. 3                     # name of the story - just for debugging
+  steps:
+  - intent: greet                             # user message with no entities
+  - action: utter_greet
+  - intent: temperature                       # user message with entities
+  - action: action_get_temperature            # action that the bot should execute
+  - intent: wind                              # user message with entities
+  - action: action_get_wind                   # action that the bot should execute
+  - intent: precipitation                     # user message with entities
+  - action: action_get_precipitation          # action that the bot should execute
+  - intent: goodbye
+  - action: utter_goodbye
+
+#4
+- story: User Story No. 4                     # name of the story - just for debugging
+  steps:
+  - intent: greet+forecast                    # user message with no entities
+  - action: utter_greet
+  - action: action_get_forecast               # user message with entities
+  - intent: thankyou
+  - action: utter_youarewelcome  
+  - intent: goodbye
+  - action: utter_goodbye
+
+#5
+- story: User Story No. 5                     # name of the story - just for debugging
+  steps:
+  - intent: temperature+humidity+wind+precipitation   
+  - action: action_get_temperature
+  - action: action_get_humidity
+  - action: action_get_wind
+  - action: action_get_precipitation
+  - intent: thankyou
+  - action: utter_youarewelcome  
+  - intent: goodbye
+  - action: utter_goodbye
+
+#6
+- story: User Story No. 6                    # name of the story - just for debugging
+  steps:
+  - intent: temperature+humidity+wind+precipitation
+    entities:
+      - location: "Zurich"   
+  - action: action_get_temperature
+  - action: action_get_humidity
+  - action: action_get_wind
+  - action: action_get_precipitation
+  - intent: thankyou
+  - action: utter_youarewelcome  
+  - intent: goodbye
+  - action: utter_goodbye
+
+#7
+- story: User Story No. 7                     # name of the story - just for debugging
+  steps:
+  - intent: temperature                       # user message with entities
+    entities:
+    - location: "Mexico City"
+  - action: action_get_temperature            # action that the bot should execute
+  - intent: temperature
+    entities:
+    - location: "Berlin"
+  - action: action_get_temperature  
+  - intent: description                       # user message with entities
+    entities:
+    - location: "Copenhagen"
+  - action: action_get_description            # action that the bot should execute
+  - intent: thankyou
+  - action: utter_youarewelcome
+  - intent: goodbye
+  - action: utter_goodbye
+
+#8
+- story: User Story No. 8                     # name of the story - just for debugging
+  steps:
+  - intent: precipitation                     # user message with entities
+    entities:
+    - location: "Kinshasa"
+  - action: action_get_precipitation          # action that the bot should execute
+  - intent: humidity                          # user message with entities
+    entities:
+    - location: "Athens"
+  - action: action_get_humidity               # action that the bot should execute
+  - intent: wind                              # user message with entities
+    entities:
+    - location: "Tokyo"
+  - action: action_get_wind                   # action that the bot should execute
+  - intent: forecast                          # user message with entities
+    entities:
+    - location: "Dublin"
+  - action: action_get_forecast               # action that the bot should execute
+
+  #9
+- story: User Story No. 9                     # name of the story - just for debugging
+  steps:
+  - intent: forecast                          # user message with entities
+    entities:
+    - location: "Canberra"
+  - action: action_get_forecast               # user message with entities
+  - intent: thankyou
+  - action: utter_youarewelcome  
+  - intent: goodbye
+  - action: utter_goodbye
+
+  #10
+- story: User Story No. 10                     # name of the story - just for debugging
+  steps:
+  - intent: temperature+humidity+wind+precipitation   
+    entities:
+    - location: "Canberra"
+  - action: action_get_temperature
+  - action: action_get_humidity
+  - action: action_get_wind
+  - action: action_get_precipitation
+  - intent: goodbye
+  - action: utter_goodbye

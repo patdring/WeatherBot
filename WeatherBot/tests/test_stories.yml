@@ -1,0 +1,124 @@
+# End-to-end (E2E) test stories that represent possible and real user requests. 
+# Are not part of the training data and serve the validation of the diaglog management.
+
+version: "3.1"
+
+# E2E story #1
+stories:
+- story: Temperature in Amsterdam and Milan.
+  steps:
+  - user: |
+      hello
+    intent: greet
+  - action: utter_greet
+  - user: |
+     How warm is it in [Amsterdam]{"entity": "location"}?
+    intent: temperature
+  - action: action_get_temperature
+  - user: |
+     and in [Milan]{"entity": "location"} ?
+    intent: temperature
+  - action: action_get_temperature
+  - user: |
+     Do I need today a umbrella ? 
+    entities:
+    - location: "Copenhagen"
+    intent: description
+  - action: action_get_description
+  - user: |
+     Thank you!
+    intent: thankyou
+  - action: utter_youarewelcome
+  - user: |
+     Bye
+    intent: goodbye
+  - action: utter_goodbye
+
+# E2E story #2
+- story: Skiing in Davos.
+  steps:
+  - user: |
+      Hi
+    intent: greet
+  - action: utter_greet
+  - user: |
+      I am a bit confused
+    intent: how_to_get_started
+  - action: utter_iamabot
+  - user: |
+     Ok, I'm planning skiing in [Davos]{"entity": "location"}?
+    intent: forecast
+  - action: action_get_forecast
+  - user: |
+     Thank you!
+    intent: thankyou
+  - action: utter_youarewelcome
+  - user: |
+     And how is the weather today?
+    intent: temperature+humidity+wind+precipitation
+  - action: action_get_temperature
+  - action: action_get_humidity
+  - action: action_get_wind
+  - action: action_get_precipitation
+
+# E2E story #3
+- story: Garden party at Home (Frankfurt).
+  steps:
+  - user: |
+      I'm planning to invite my neighbors to a garden party maybe the next days?
+    intent: forecast
+  - action: action_get_forecast
+  - user: |
+      Is it sunny? Do I need my sunglasses today?
+    intent: description
+  - action: action_get_description
+  - user: |
+     Thanks
+    intent: thankyou
+  - action: utter_youarewelcome
+
+# E2E story #4
+- story: It's cold outside (Moscow).
+  steps:
+  - user: |
+      Brrrrrr, I'm freezing!
+    intent: temperature
+  - action: action_get_temperature
+  - user: |
+      How is the weather the next days?
+    intent: forecast
+  - action: action_get_forecast
+  - user: |
+     Bye
+    intent: goodbye
+  - action: utter_goodbye
+ 
+ # E2E story #5
+- story: Rain in Dublin.
+  steps:
+  - user: |
+      How warm is it today in [Dublin]{"entity": "location"}?
+    intent: temperature
+  - action: action_get_temperature
+  - user: |
+      Is it sunny or cloudy there?
+    intent: description
+  - action: action_get_description
+  - user: |
+      And is it raining?
+    intent: precipitation
+  - action: action_get_precipitation
+  - user: |
+      And is it humid?
+    intent: humidity
+  - action: action_get_humidity
+  - user: |
+      Great, but I hate wind?
+    intent: wind
+  - action: action_get_wind
+  - user: |
+     Bye
+    intent: goodbye
+  - action: utter_goodbye
+
+ 

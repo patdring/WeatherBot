@@ -1,0 +1,59 @@
+# Describes the domain (weather) for WeatherBot
+version: "3.1"
+
+# Information that can be requested
+intents:
+  - temperature
+  - description
+  - precipitation
+  - humidity
+  - wind
+  - forecast
+  - greet
+  - thankyou
+  - goodbye
+  - nlu_fallback
+  - how_to_get_started
+  - greet+forecast
+  - temperature+humidity+wind+precipitation
+
+# The location information should be extracted
+entities:
+  - location
+
+# Custom actions have been implemented, see action/actions.py
+slots:
+  location: 
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: custom
+
+# Prefabricated NLG responses without dynamics
+responses:
+  utter_greet:
+    - text: "Hey there!"
+  utter_goodbye:
+    - text: "Goodbye :("
+  utter_default:
+    - text: "Sorry, I didn't get that, can you rephrase?"
+  utter_youarewelcome:
+    - text: "You're very welcome."
+  utter_iamabot:
+    - text: "I'm WeatherBot, A bot powered by Rasa answering questions about the weather."
+  utter_get_started:
+    - text: "I can help you ?"
+
+# List of/Connector to custom actions implemented in actions/actions.py 
+actions:
+  - action_get_temperature
+  - action_get_description
+  - action_get_precipitation
+  - action_get_humidity
+  - action_get_wind
+  - action_get_forecast
+
+# Session configuration, closing browser -> restart conversation/entities
+session_config:
+  session_expiration_time: 60  # value in minutes
+  carry_over_slots_to_new_session: true

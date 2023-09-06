@@ -1,0 +1,224 @@
+# Contains the training data based on examples of defined intents. 
+# With location exists a lookup table for later recognition and 
+# entitiy extraction (see corresponding comments in config_1.yml or config_2.yml).
+# For more info. see: https://rasa.com/docs/rasa/nlu-training-data/#lookup-tables
+
+version: "3.1"
+nlu:  
+  - lookup: location
+    examples: | 
+      - amsterdam
+      - toronto
+      - frankfurt
+      - geneva
+      - vancouver
+      - copenhagen
+      - vienna
+      - paris
+      - moscow
+      - dubai
+      - tokyo
+      - singapore
+      - los angeles
+      - barcelona
+      - rome
+      - new york
+      - ny
+      - new york city
+      - ny city
+      - san jose
+      - kinshasa
+      - prague
+      - athens
+      - tehran
+      - dublin
+      - bucharest
+      - dakar
+      - edinburgh
+      - bangkok
+      - caracas
+      - mexico city
+      - tokyo
+      - cairo
+      - brasilia
+      - baku
+      - canberra
+      - sarajevo
+      - la paz
+      - santiago
+      - chicago
+      - housten
+      
+  - intent: temperature
+    examples: |
+      - how warm is it today?  
+      - how warm is it?
+      - is it today warm or cold?
+      - is it nice and warm today?
+      - is pleasantly warm today?
+      - what is the temperature?
+      - temperature outside?
+      - i feel warm!
+      - i'm cold!
+      - its freezing cold outside!
+      - Brrrrrr
+      - i am melting!
+      - how warm is it in [amsterdam](location) today?
+      - how warm is it in [toronto](location)?
+      - is it warm or cold in [frankfurt](location) today?
+      - is it nice and warm in [geneva](location) now?
+      - is pleasantly warm in [vancouver](location) today?
+      - what is the temperature in [copenhagen](location)?
+      - temperature in [vienna](location) currently?
+      - i feel warm in [paris](location)? 
+      - Why i'm sweating?
+
+  - intent: description
+    examples: |
+      - is it cloudy?
+      - is it sunny?
+      - do i need sunglasses?
+      - will it be a nice day?
+      - how is it outside?
+      - is it cloudy in [moscow](location) today?
+      - is it sunny in [dubai](location) today?
+      - i see the sun in [tokyo](location) today? 
+      - do i need sunglasses in [singapore](location) today?
+      - will it be a nice day in [los angeles](location) today? 
+      - how is it in [new york](location) now?
+      - weather description for [barcelona](location) now?
+      - describe the weather in [rome](location) today?
+
+  - intent: precipitation
+    examples: |
+      - how is the precipitation?
+      - is it raining outside?
+      - it rains like cats and dogs?
+      - is it pouring? 
+      - how is the precipitation in [new york](location) now?
+      - is it raining in [ny](location) right now?
+      - it rains like cats and dogs in [chicago](location) today?
+      - is it pouring in [ny city](location) now?
+
+  - intent: humidity
+    examples: |
+      - how is the humidity?
+      - it is dry outside?
+      - it is humid?
+      - what is the humidity?
+      - how is the humidity in [kinshasa](location) now?
+      - it is dry in [prague](location) currently?
+      - it is humid in [athens](location) right now?
+      - what is the humidity in [tehran](location) today?
+
+  - intent: wind
+    examples: |
+      - is it windy today? 
+      - wind speed right now?
+      - is it calm outside?
+      - will i get blown away outside?
+      - is it windy in [dublin](location) today?
+      - wind speed in [bucharest](location) right now?
+      - is it calm in [dakar](location) today?
+      - will i get blown away in [edinburgh](location) outside?
+      - looks stormy today!
+    
+  - intent: forecast
+    examples: |
+      - will be the weather better soon?
+      - will the weathe be worse? 
+      - how will it be?
+      - how is the weather the next days?
+      - weather forecast?
+      - how will it be the next days?
+      - I plan to go skiing soon?
+      - i plan a garden party in close future?
+      - i miss the sun? 
+      - forecast?
+      - how is the weather the next days in [Bangkok](location)?
+      - weather forecast for [Caracas](location) the next days?
+      - how will it be the next days in [Mexico City](location)?
+      - I plan to go skiing in [Tokyo](location) at the week-end?
+      - i plan a garden party in [Cairo](location) next weekend?
+      - i miss the sun in [Brasilia](location)?
+      - forecast [Baku](location)?
+      - what's the weather like in [new york](location)?
+      - tell me the weather forecast for [chicago](location)?
+      - how's the weather in [los angeles](location)?
+      - give me the weather update for [houston](location)?
+      - what's the weather going to be like in [new york](location) tomorrow?
+
+  - intent: greet
+    examples: |
+      - hi
+      - hello
+      - how are you
+      - good morning
+      - good evening
+      - hey
+      - whats up
+
+  - intent: goodbye
+    examples: |
+      - bye
+      - goodbye
+      - ciao
+      - byebye
+      - c u
+
+  - intent: thankyou
+    examples: |
+      - thanks
+      - thank you
+      - thanks friend
+      - great
+      - well 
+      - well done
+
+  - intent: how_to_get_started
+    examples: |
+      - how do I get started?
+      - what can I do?
+      - start
+      - i am confused
+      - huh
+      - where to start?
+      - who are you?
+      - can you help me?
+  
+  - intent: greet+forecast
+    examples: |
+      - hi, how will the weather be?
+      - hey, will the weather be nice?
+      - hello, will the weather be nice? 
+      - dear, I wonder what the weather will be like in the future days?
+      - g'day, weather for the next days please?
+      - hi, how will the weather be in [canberra](location)?
+      - hey, will the weather be nice in [sarajevo](location)?
+      - hello, will the weather be nice in [la paz](location)?
+      - dear, I wonder what the weather will be like in [santiago](location) for the next days?
+      - g'day, weather for the next days for in [amsterdam](location) please?
+  
+  - intent: temperature+humidity+wind+precipitation
+    examples: |
+      - how pleasant is it today?
+      - how enjoyable is it right now?
+      - i want to do sports today?
+      - will be unpleasant today?
+      - what should I wear now?
+      - do I need a jacket outside?
+      - help with choosing shoes?
+      - sweater or t-shirt when i go outside?
+      - how pleasant is it today in [amsterdam](location)?
+      - how enjoyable is it today in [toronto](location)?
+      - i stay at home in [frankfurt](location) or should i go outside?
+      - i want to do sports today in [geneva](location)?
+      - will be unpleasant today in [vancouver](location)?
+      - what should I wear today in [copenhagen](location)?
+      - do I need a jacket today in [vienna](location) or not?
+      - help with choosing shoes in [paris](location) right know?
+      - sweater or t-shirt in [moscow](location) today?
+  
+
+
+  

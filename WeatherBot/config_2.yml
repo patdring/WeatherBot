@@ -1,0 +1,55 @@
+# NLU pipeline and Dialog Management policies configuration
+# Relies on spacy and thus on the pre-trained language model en_core_web.md.  
+# Allows With UnexpecTEDIntentPolicy to react to unlikely user changes. 
+
+recipe: default.v1
+language: en
+
+# Components make up the NLU pipeline and work sequentially to process user input into structured output. 
+# There are components for entity extraction, for intent classification, response selection, pre-processing.
+# For more info. please see: https://rasa.com/docs/rasa/components/
+# This model is based on https://rasa.com/docs/rasa/tuning-your-model/
+pipeline:
+# Using SpacyNLP as an open-source software library for advanced natural language processing
+- name: SpacyNLP
+# Language model to load
+  model: "en_core_web_md"
+# Creates tokens using the spaCy tokenizer
+- name: SpacyTokenizer
+# This component predicts the entities of a message. spaCy uses a statistical BILOU transition model
+- name: SpacyEntityExtractor
+# This component extract entities using the lookup tables and regexes defined in the training data
+- name: RegexEntityExtractor
+# Creates features for entity extraction, intent classification, and response classification 
+- name: SpacyFeaturizer
+  pooling: mean
+# Creates features for intent classification and response selection. Creates bag-of-words representation 
+# of user message, intent, and respons
+- name: CountVectorsFeaturizer
+  analyzer: char_wb
+  min_ngram: 1
+  max_ngram: 4
+# Dual Intent Entity Transformer (DIET) used for intent classification and entity extraction
+- name: DIETClassifier
+  entity_recognition: False
+  batch_strategy: sequence
+  epochs: 150
+
+# The following default policies were used to train your model.
+# See https://rasa.com/docs/rasa/policies for more information.
+policies:
+# remembers the stories from training data and checks if the current conversation matches 
+# the stories in data/stories.yml
+- name: MemoizationPolicy
+# Makes predictions based on any rules from training data
+- name: RulePolicy
+# Allows WeatherBot to react to unlikely user turns
+- name: UnexpecTEDIntentPolicy
+  max_history: 5
+  epochs: 100
+# The Transformer Embedding Dialogue (TED) Policy is a multi-task architecture for next action prediction 
+# and entity recognition
+- name: TEDPolicy
+  max_history: 5
+  epochs: 100
+  constrain_similarities: true

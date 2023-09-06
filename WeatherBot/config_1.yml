@@ -1,0 +1,58 @@
+# NLU pipeline and Dialog Management policies configuration
+# Works without language model, contains a SynonymMapper. 
+# A "classic" approach according to rasa docu.
+
+recipe: default.v1
+language: en
+
+# Components make up the NLU pipeline and work sequentially to process user input into structured output. 
+# There are components for entity extraction, for intent classification, response selection, pre-processing.
+# For more info. please see: https://rasa.com/docs/rasa/components/
+# This model is based on https://rasa.com/docs/rasa/tuning-your-model/
+pipeline:
+# Creates a token for every whitespace separated character sequence
+- name: WhitespaceTokenizer
+# Creates features for intent classification and response selection. Creates bag-of-words representation 
+# of user message, intent, and respons
+- name: CountVectorsFeaturizer
+# This component extract entities using the lookup tables and regexes defined in the training data.
+- name: RegexEntityExtractor
+# Moves with a sliding window over every token in the user message and creates features
+- name: LexicalSyntacticFeaturizer
+# Creates features for intent classification and response selection. Creates bag-of-words representation 
+# of user message, intent, and respons
+- name: CountVectorsFeaturizer
+  analyzer: char_wb
+  min_ngram: 1
+  max_ngram: 4
+# Dual Intent Entity Transformer (DIET) used for intent classification and entity extraction
+- name: DIETClassifier
+  entity_recognition: False
+  batch_strategy: sequence
+  epochs: 150
+# If the training data contains defined synonyms, this component will make sure that detected entity 
+# values will be mapped to the same value
+- name: EntitySynonymMapper
+# Is used to build a response retrieval model to directly predict a bot response from a set of candidate responses
+- name: ResponseSelector
+  epochs: 150
+# Classifies a user message with the intent nlu_fallback in case the previous intent classifier wasn't able to 
+# classify an intent with a confidence threshold
+- name: FallbackClassifier
+  threshold: 0.3
+  ambiguity_threshold: 0.1
+
+# The following policies were used to train your model.
+# See https://rasa.com/docs/rasa/policies for more information.
+policies:
+# Remembers the stories from training data and checks if the current conversation matches 
+# the stories in data/stories.yml
+- name: MemoizationPolicy
+# The Transformer Embedding Dialogue (TED) Policy is a multi-task architecture for next action prediction 
+# and entity recognition
+- name: TEDPolicy
+  max_history: 5
+  epochs: 10
+  constrain_similarities: true
+# Makes predictions based on any rules from training data
+- name: RulePolicy
